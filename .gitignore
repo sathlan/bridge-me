@@ -1,0 +1,23 @@
+src/*
+!*.c
+!*.h
+!*.sh
+!*.am
+*.o
+*~
+.deps/
+stamp-h1
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/
+*.log
+*.status
+configure
+*.scan
+depcomp
+install-sh
+missing
+# work on git-init-etc.sh.in
+git-init-etc.sh
+config.h*
