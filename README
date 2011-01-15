@@ -1,0 +1,44 @@
+* NAME
+
+  =if-bridge0 tap33= - add the tap33 interface to the bridge =bridge0=
+  on FreeBSD.
+
+* DESCRIPTION
+
+This install setuid binaries that enables user to add an interface to
+a bridge.  Most useful on FreeBSD with qemu, as in :
+
+#+srcname: start-qemu
+#+begin_src sh
+  sudo ifconfig bridge0 create up
+  sudo ifconfig bridge2 create up
+  sudo ifconfig bridge3 create up
+  
+  qemu-system-x86_64  -kernel-kqemu -enable-kqemu  -boot c -hda ~/vps/machines/debian/fw-02-x86_64.d1.qcow2 -m 512 -net tap,ifname=tap79,vlan=0,script=~/.local/bin/if-bridge0 -net nicvlan=0 -net tapifname=tap80,vlan=1,script=~/.local/bin/if-bridge2 -net nic,vlan=1 -net tap,ifname=tap12,vlan=2,script=~/.local/bin/if-bridge3 -net nic,vlan=2 -nographic 
+  
+#+end_src
+
+It creates three bridges and start a vm with three nics with one
+plugged on each bridge.
+
+* VERSION
+
+This refers to version 0.1.
+
+* USAGE
+
+: sudo ifconfig bridge<idg> create up
+: cd ~/bin
+: ln -s if-bridge if-bridge<idx>
+: if-bridge<idx> <nic_if>
+
+Add the nic_if to bridge <idx>, as a user.
+
+* AUTHOR
+
+Sathlan at mypublicaddress-code@NOSPAM yahoo.com
+
+* COPYRIGHT
+
+see COPYING for copyright.
+
